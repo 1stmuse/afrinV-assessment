@@ -31,3 +31,8 @@ body {
     text-wrap: balance;
   }
 }
+
+.header_search {
+  @apply bg-gray-100 rounded-md flex justify-start items-center px-3 py-2 sm:w-72
+}
+
