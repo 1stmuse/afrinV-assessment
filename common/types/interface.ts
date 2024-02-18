@@ -6,3 +6,15 @@ export interface MenuItem {
   icon: ReactNode;
   subMenu?: Omit<MenuItem, "subMenu" | "icon">[];
 }
+
+export interface navState {
+  show: boolean;
+  setShow: (val: boolean) => void;
+}
+
+export interface StockAsset {
+  name: string;
+  logo: string;
+  total_shares: number;
+  total_returns: number;
+}

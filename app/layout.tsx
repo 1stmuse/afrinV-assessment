@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
+import { NavStateProvider } from "@/hooks/navState";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +18,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className="flex  p-5 bg-gray-100 h-full">
-        <Nav />
+    <html lang="en" className="!h-dvh w-full fixed">
+      <NavStateProvider>
+        <body className="flex  p-5 bg-gray-100 !h-dvh">
+          <Nav />
 
-        <main className="w-full h-full">
-          <Header />
-          {children}
-        </main>
-      </body>
+          <main className="w-full !h-dvh">
+            <Header />
+            <div className="scroll-auto h-full overflow-scroll">{children}</div>
+          </main>
+        </body>
+      </NavStateProvider>
     </html>
   );
 }

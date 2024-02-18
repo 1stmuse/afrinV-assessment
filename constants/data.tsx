@@ -1,11 +1,14 @@
 import React from "react";
-import { MenuItem } from "@/common/types/interface";
+import { MenuItem, StockAsset } from "@/common/types/interface";
 
-import HomeIcon from "@/assets/svgs/homeIcon.svg";
-import DashboardIcon from "@/assets/svgs/dashboardIcon.svg";
-import Wallet from "@/assets/svgs/walletIcon.svg";
-import News from "@/assets/svgs/newsIcon.svg";
-import Stock from "@/assets/svgs/stockIcon.svg";
+import HomeIcon from "@/public/assets/svgs/homeIcon.svg";
+import DashboardIcon from "@/public/assets/svgs/dashboardIcon.svg";
+import Wallet from "@/public/assets/svgs/walletIcon.svg";
+import News from "@/public/assets/svgs/newsIcon.svg";
+import Stock from "@/public/assets/svgs/stockIcon.svg";
+import Comm from "@/public/assets/svgs/peopleIcon.svg";
+import Settings from "@/public/assets/svgs/settingIcon.svg";
+import Contact from "@/public/assets/svgs/callIcon.svg";
 
 export const topMenus: MenuItem[] = [
   {
@@ -13,11 +16,7 @@ export const topMenus: MenuItem[] = [
     label: "Home",
     icon: <HomeIcon height={20} width={20} />,
   },
-  {
-    key: "/dashboard",
-    label: "Dashboard",
-    icon: <DashboardIcon height={20} width={20} />,
-  },
+
   {
     key: "/wallet",
     label: "Wallet",
@@ -31,7 +30,7 @@ export const topMenus: MenuItem[] = [
   {
     key: "/stock-and-fund",
     label: "Stock & fund",
-    icon: <DashboardIcon height={20} width={20} />,
+    icon: <Stock height={20} width={20} />,
     subMenu: [
       {
         key: "/stock",
@@ -50,5 +49,50 @@ export const topMenus: MenuItem[] = [
         label: "Gold",
       },
     ],
+  },
+];
+
+export const bottomMenus: MenuItem[] = [
+  {
+    key: "/community",
+    label: "Our community",
+    icon: <Comm height={20} width={20} />,
+  },
+  {
+    key: "/settings",
+    label: "Settings",
+    icon: <Settings height={20} width={20} />,
+  },
+  {
+    key: "/contact",
+    label: "Contact us",
+    icon: <Wallet height={20} width={20} />,
+  },
+];
+
+export const myStocks: StockAsset[] = [
+  {
+    name: "Apple",
+    logo: "apple",
+    total_shares: 100,
+    total_returns: -10,
+  },
+  {
+    name: "Meta",
+    logo: "facebook",
+    total_shares: 100,
+    total_returns: 0.041,
+  },
+  {
+    name: "Google",
+    logo: "google",
+    total_shares: 100,
+    total_returns: -0.335,
+  },
+  {
+    name: "Microsoft",
+    logo: "microsoft",
+    total_shares: 100,
+    total_returns: 10,
   },
 ];

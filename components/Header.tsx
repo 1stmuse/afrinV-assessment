@@ -1,16 +1,24 @@
 "use client";
 
-import Search from "@/assets/svgs/search.svg";
-import Mail from "@/assets/svgs/mail.svg";
-import Bell from "@/assets/svgs/noti.svg";
+import Search from "@/public/assets/svgs/search.svg";
+import Mail from "@/public/assets/svgs/mail.svg";
+import Bell from "@/public/assets/svgs/noti.svg";
 import Image from "next/image";
-import Spark from "@/assets/svgs/spark.svg";
+import Spark from "@/public/assets/svgs/spark.svg";
+import { useNavState } from "@/hooks/navState";
 
 const Header = () => {
+  const { show, setShow } = useNavState();
+
+  console.log(show);
+
   return (
     <section className="w-full bg-white p-5 py-7 flex justify-between items-center rounded-tr-3xl ">
-      <div className="max-sm:block hidden">
-        <div className="bg-black items-center justify-center flex rounded-full w-10 h-10">
+      <div className={`max-sm:${show ? "hidden" : "block"} sm:hidden`}>
+        <div
+          onClick={() => setShow(!show)}
+          className="bg-black items-center justify-center flex rounded-full w-10 h-10"
+        >
           <Spark height={20} width={20} />
         </div>
       </div>
@@ -33,7 +41,7 @@ const Header = () => {
 
           <div className="h-6 w-0.5 bg-black max-sm:hidden " />
           <Image
-            src={require("@/assets/images/me.JPG")}
+            src={require("@/public/assets/images/me.JPG")}
             alt="profile img"
             className="w-8 h-8 object-cover rounded-full max-sm:ml-4"
           />
