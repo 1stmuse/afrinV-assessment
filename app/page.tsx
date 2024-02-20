@@ -81,28 +81,34 @@ export default function Home() {
     <section className="p-4 h-full flex-1 overflow-scroll">
       <h2 className="mb-4 text-lg font-semibold">My Portfolio</h2>
       <MyStocks />
-      <div className="w-full px-3 mt-8 bg-white py-2 rounded-md">
-        <div className="my-2 ml-8 mb-5 flex items-center">
-          <h2 className="text-lg font-semibold">Daily Stock Updates</h2>
-          <Dropdown
-            onChange={onSelectFunc}
-            value={func}
-            placeholder="Select an option"
-            options={options}
-            className="w-[8rem] m-10"
-            arrowClassName="mt-1"
-          />
-          <Dropdown
-            onChange={onSelectLimit}
-            value={limit}
-            placeholder="Select an option"
-            options={limitOptions}
-            className="w-[8rem] m-10"
-            arrowClassName="mt-1"
-          />
+      {isLoading ? (
+        <div className="w-full h-56 flex items-center justify-center">
+          <h2>Loading...</h2>
         </div>
-        <StockChart data={structureData} />
-      </div>
+      ) : (
+        <div className="w-full px-3 mt-8 bg-white py-2 rounded-md">
+          <div className="my-2 ml-8 mb-5 flex items-center">
+            <h2 className="text-lg font-semibold">Daily Stock Updates</h2>
+            <Dropdown
+              onChange={onSelectFunc}
+              value={func}
+              placeholder="Select an option"
+              options={options}
+              className="w-[8rem] m-10"
+              arrowClassName="mt-1"
+            />
+            <Dropdown
+              onChange={onSelectLimit}
+              value={limit}
+              placeholder="Select an option"
+              options={limitOptions}
+              className="w-[8rem] m-10"
+              arrowClassName="mt-1"
+            />
+          </div>
+          <StockChart data={structureData} />
+        </div>
+      )}
     </section>
   );
 }

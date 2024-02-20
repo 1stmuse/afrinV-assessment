@@ -74,25 +74,25 @@ export const myStocks: StockAsset[] = [
   {
     name: "Apple",
     logo: "apple",
-    total_shares: 100,
+    total_shares: 10034,
     total_returns: -10,
   },
   {
     name: "Meta",
     logo: "facebook",
-    total_shares: 100,
+    total_shares: 23400,
     total_returns: 0.041,
   },
   {
     name: "Google",
     logo: "google",
-    total_shares: 100,
+    total_shares: 35000,
     total_returns: -0.335,
   },
   {
     name: "Microsoft",
     logo: "microsoft",
-    total_shares: 100,
+    total_shares: 1200,
     total_returns: 10,
   },
 ];

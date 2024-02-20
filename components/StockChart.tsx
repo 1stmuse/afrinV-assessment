@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import moment from "moment";
 
 const StockChart = ({ data }: { data: any[] }) => {
-  const svgRef = useRef();
+  const svgRef = useRef(null);
   const margin = { top: 20, right: 30, bottom: 50, left: 50 };
   const width = 800;
   const height = 400 - margin.top - margin.bottom;
@@ -12,20 +11,6 @@ const StockChart = ({ data }: { data: any[] }) => {
     if (!data.length) return;
 
     const svg = d3.select(svgRef.current);
-
-    // Define chart dimensions
-
-    // Parse dates and extract OHLC data
-    // const parseDate = d3.timeParse("%Y-%m-%d");
-    // const parsedData = Object.keys(data).map((key) => ({
-    //   date: parseDate(key),
-    //   open: +data[key]["1. open"],
-    //   high: +data[key]["2. high"],
-    //   low: +data[key]["3. low"],
-    //   close: +data[key]["4. close"],
-    // }));
-
-    // console.log(parsedData, "the parsed data");
 
     // Create scales
     const x = d3
