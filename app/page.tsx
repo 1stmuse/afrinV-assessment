@@ -2,58 +2,106 @@
 
 import MyStocks from "@/components/MyStocks";
 import StockChart from "@/components/StockChart";
+import * as d3 from "d3";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import useSWR from "swr";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
+
+const options = [
+  {
+    label: "Daily",
+    value: "TIME_SERIES_DAILY",
+  },
+  {
+    label: "Weekly",
+    value: "TIME_SERIES_WEEKLY",
+  },
+];
+
+const limitOptions = [
+  {
+    label: "5",
+    value: "5",
+  },
+  {
+    label: "10",
+    value: "10",
+  },
+  {
+    label: "15",
+    value: "15",
+  },
+  {
+    label: "20",
+    value: "20",
+  },
+];
 
 export default function Home() {
-  const [stockData, setStockData] = useState(null);
+  const [func, setFunc] = useState(options[0]);
+  const [limit, setLimit] = useState(limitOptions[0]);
 
-  useEffect(() => {
-    // Fetch stock data from API or use a local JSON file
-    // Example: fetch('https://api.example.com/stock-data').then(response => response.json()).then(data => setStockData(data));
-    const sampleData = {
-      "2024-02-16": {
-        "1. open": "186.6300",
-        "2. high": "188.9500",
-        "3. low": "185.9452",
-        "4. close": "187.6400",
-        "5. volume": "4842840",
-      },
-      "2024-02-15": {
-        "1. open": "183.6200",
-        "2. high": "186.9800",
-        "3. low": "183.6200",
-        "4. close": "186.8700",
-        "5. volume": "4714301",
-      },
-      "2024-02-14": {
-        "1. open": "185.0000",
-        "2. high": "185.0000",
-        "3. low": "182.2600",
-        "4. close": "183.5700",
-        "5. volume": "3173391",
-      },
-      "2024-02-13": {
-        "1. open": "184.2800",
-        "2. high": "184.7700",
-        "3. low": "182.3600",
-        "4. close": "183.7000",
-        "5. volume": "4290453",
-      },
-    };
+  const { data, isLoading } = useSWR(func.value);
 
-    setStockData(sampleData);
-  }, []);
+  // console.log(data, "THE TIME DAILY SERIES");
+
+  const structureData = useMemo(() => {
+    // if (data == null || data == undefined) return;
+    if (data) {
+      let keys = Object.keys(data);
+      const mainData = data[keys[1]];
+      console.log(mainData, "THE MAIN DATA STOCK");
+      const parseDate = d3.timeParse("%Y-%m-%d");
+      const parsedData = Object.keys(mainData).map((key) => ({
+        date: parseDate(key),
+        open: mainData[key]?.["1. open"],
+        high: mainData[key]?.["2. high"],
+        low: mainData[key]?.["3. low"],
+        close: mainData[key]?.["4. close"],
+      }));
+      return parsedData.slice(0, Number(limit.value));
+    } else {
+      return [];
+    }
+  }, [isLoading, func.value, limit.value]);
+
+  const onSelectFunc = (option: any) => {
+    console.log(option, "THE SELECTED OPTION");
+    setFunc(option);
+  };
+
+  const onSelectLimit = (option: any) => {
+    console.log(option, "THE SELECTED OPTION");
+    setLimit(option);
+  };
 
   return (
     <section className="p-4 h-full flex-1 overflow-scroll">
       <h2 className="mb-4 text-lg font-semibold">My Portfolio</h2>
       <MyStocks />
-      <div className="w-full px-3 mt-5 bg-white py-8">
-        <div className="my-5 ml-8 mb-10">
+      <div className="w-full px-3 mt-8 bg-white py-2 rounded-md">
+        <div className="my-2 ml-8 mb-5 flex items-center">
           <h2 className="text-lg font-semibold">Daily Stock Updates</h2>
+          <Dropdown
+            onChange={onSelectFunc}
+            value={func}
+            placeholder="Select an option"
+            options={options}
+            className="w-[8rem] m-10"
+            arrowClassName="mt-1"
+          />
+          <Dropdown
+            onChange={onSelectLimit}
+            value={limit}
+            placeholder="Select an option"
+            options={limitOptions}
+            className="w-[8rem] m-10"
+            arrowClassName="mt-1"
+          />
         </div>
-        {stockData && <StockChart data={stockData} />}
+        <StockChart data={structureData} />
       </div>
     </section>
   );

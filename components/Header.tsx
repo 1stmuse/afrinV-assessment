@@ -13,7 +13,7 @@ const Header = () => {
   console.log(show);
 
   return (
-    <section className="w-full bg-white p-5 py-7 flex justify-between items-center rounded-tr-3xl ">
+    <section className="w-full bg-white p-5 py-7 flex justify-between items-center rounded-tr-3xl overflow-y-hidden shadow-sm sticky z-30 left-0 top-0 right-0">
       <div className={`max-sm:${show ? "hidden" : "block"} sm:hidden`}>
         <div
           onClick={() => setShow(!show)}

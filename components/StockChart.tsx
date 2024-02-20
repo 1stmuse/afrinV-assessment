@@ -2,50 +2,47 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import moment from "moment";
 
-const StockChart = ({ data }) => {
+const StockChart = ({ data }: { data: any[] }) => {
   const svgRef = useRef();
   const margin = { top: 20, right: 30, bottom: 50, left: 50 };
-  const width = 800 - margin.left - margin.right;
+  const width = 800;
   const height = 400 - margin.top - margin.bottom;
 
   useEffect(() => {
-    if (!data) return;
+    if (!data.length) return;
 
     const svg = d3.select(svgRef.current);
 
     // Define chart dimensions
 
     // Parse dates and extract OHLC data
-    const parseDate = d3.timeParse("%Y-%m-%d");
-    const parsedData = Object.keys(data).map((key) => ({
-      date: parseDate(key),
-      open: +data[key]["1. open"],
-      high: +data[key]["2. high"],
-      low: +data[key]["3. low"],
-      close: +data[key]["4. close"],
-    }));
+    // const parseDate = d3.timeParse("%Y-%m-%d");
+    // const parsedData = Object.keys(data).map((key) => ({
+    //   date: parseDate(key),
+    //   open: +data[key]["1. open"],
+    //   high: +data[key]["2. high"],
+    //   low: +data[key]["3. low"],
+    //   close: +data[key]["4. close"],
+    // }));
 
-    console.log(parsedData, "the parsed data");
+    // console.log(parsedData, "the parsed data");
 
     // Create scales
     const x = d3
       .scaleTime()
-      .domain(d3.extent(parsedData, (d) => d.date))
+      .domain(d3.extent(data, (d) => d.date))
       .range([0, width]);
 
     const y = d3
       .scaleLinear()
-      .domain([
-        d3.min(parsedData, (d) => d.low),
-        d3.max(parsedData, (d) => d.high),
-      ])
+      .domain([d3.min(data, (d) => d.low), d3.max(data, (d) => d.high)])
       .range([height, 0]);
 
     // Add candlestick bars to SVG
     svg.selectAll("*").remove(); // Clear existing elements
     svg
       .selectAll("line")
-      .data(parsedData)
+      .data(data)
       .enter()
       .append("line")
       .attr("x1", (d) => x(d.date))
@@ -57,7 +54,7 @@ const StockChart = ({ data }) => {
 
     svg
       .selectAll("rect")
-      .data(parsedData)
+      .data(data)
       .enter()
       .append("rect")
       .attr("x", (d) => x(d.date) - 5)

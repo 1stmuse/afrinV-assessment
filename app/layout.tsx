@@ -4,8 +4,7 @@ import "@/styles/globals.css";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
 import { NavStateProvider } from "@/hooks/navState";
-import { SWRConfig } from "swr";
-import { fetcher } from "@/services/fetcher";
+import { SwrProvider } from "@/providers/SwrProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,23 +18,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="!h-dvh w-full">
-      <SWRConfig
-        value={{
-          refreshInterval: 3000,
-          fetcher: fetcher,
-        }}
-      >
+      <SwrProvider>
         <NavStateProvider>
-          <body className="flex  p-5 bg-gray-100 !h-dvh">
+          <body className="flex  p-5 bg-gray-100 overflow-y-hidden">
             <Nav />
 
-            <main className="w-full !h-dvh">
+            <main className="w-full max-h-screen overflow-auto ">
               <Header />
-              <div className="scroll-auto  overflow-scroll">{children}</div>
+              <div className="opacity-1 ease-in-out transition-opacity duration-300 w-full">
+                {children}
+              </div>
             </main>
           </body>
         </NavStateProvider>
-      </SWRConfig>
+      </SwrProvider>
     </html>
   );
 }

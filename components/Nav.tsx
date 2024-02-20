@@ -11,7 +11,7 @@ const Nav = () => {
   const pathName = usePathname();
 
   return (
-    <section className="md:w-[19%]  bg-white  sm:border-r-2 rounded-l-3xl  flex  flex-col ">
+    <section className="md:w-[19%]  bg-white  sm:border-r-2 rounded-l-3xl  flex flex-col h-screen ">
       <div className={`max-sm:${show ? "block" : "hidden"} pt-5`}>
         <div className={`sm:hidden w-full flex justify-center mb-20`}>
           <div
@@ -59,7 +59,7 @@ const Nav = () => {
           );
         })}
       </div>
-      <div className="flex-1 flex">
+      <div className="flex-1 flex pb-10">
         <div className="self-end w-full">
           <div className="w-[80%] h-0.5 bg-gray-100 mx-auto " />
           {bottomMenus.map((item) => {
