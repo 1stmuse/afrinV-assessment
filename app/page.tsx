@@ -78,7 +78,7 @@ export default function Home() {
   };
 
   return (
-    <section className="p-4 h-full flex-1 overflow-scroll">
+    <section className="p-4 h-full flex-1 overflow-scroll w-full">
       <h2 className="mb-4 text-lg font-semibold">My Portfolio</h2>
       <MyStocks />
       {isLoading ? (
@@ -86,27 +86,31 @@ export default function Home() {
           <h2>Loading...</h2>
         </div>
       ) : (
-        <div className="w-full px-3 mt-8 bg-white py-2 rounded-md">
-          <div className="my-2 ml-8 mb-5 flex items-center">
+        <div className="w-full px-3 mt-8 bg-white py-2 rounded-md overscroll-x-auto">
+          <div className="my-2 ml-8 mb-5 flex items-center max-sm:justify-between">
             <h2 className="text-lg font-semibold">Daily Stock Updates</h2>
-            <Dropdown
-              onChange={onSelectFunc}
-              value={func}
-              placeholder="Select an option"
-              options={options}
-              className="w-[8rem] m-10"
-              arrowClassName="mt-1"
-            />
-            <Dropdown
-              onChange={onSelectLimit}
-              value={limit}
-              placeholder="Select an option"
-              options={limitOptions}
-              className="w-[8rem] m-10"
-              arrowClassName="mt-1"
-            />
+            <div className="flex max-sm:flex-col">
+              <Dropdown
+                onChange={onSelectFunc}
+                value={func}
+                placeholder="Select an option"
+                options={options}
+                className="w-[8rem] sm:m-10 max-sm:mb-3"
+                arrowClassName="mt-1"
+              />
+              <Dropdown
+                onChange={onSelectLimit}
+                value={limit}
+                placeholder="Select an option"
+                options={limitOptions}
+                className="w-[8rem] sm:m-10"
+                arrowClassName="mt-1"
+              />
+            </div>
           </div>
-          <StockChart data={structureData} />
+          <div className="w-full overflow-scroll">
+            <StockChart data={structureData} />
+          </div>
         </div>
       )}
     </section>

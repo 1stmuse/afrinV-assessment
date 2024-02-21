@@ -23,8 +23,7 @@ const StockChart = ({ data }: { data: any[] }) => {
       .domain([d3.min(data, (d) => d.low), d3.max(data, (d) => d.high)])
       .range([height, 0]);
 
-    // Add candlestick bars to SVG
-    svg.selectAll("*").remove(); // Clear existing elements
+    svg.selectAll("*").remove();
     svg
       .selectAll("line")
       .data(data)
@@ -72,12 +71,14 @@ const StockChart = ({ data }: { data: any[] }) => {
   }, [data]);
 
   return (
-    <svg className="ml-10" ref={svgRef} width="800" height="400">
-      <g
-        className="ml-10"
-        transform={`translate(${margin.left}, ${margin.top})`}
-      ></g>
-    </svg>
+    <div className="w-[800px]">
+      <svg className="ml-10 w-full" width="800" ref={svgRef} height="400">
+        <g
+          className="ml-10"
+          transform={`translate(${margin.left}, ${margin.top})`}
+        ></g>
+      </svg>
+    </div>
   );
 };
 
