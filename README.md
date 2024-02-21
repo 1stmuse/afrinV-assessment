@@ -4,9 +4,9 @@ This is the solution to Afrinvest Frotnend Developer assessment.
 
 ## Getting Started
 
-#Next.js
-#SWR(api fetching)
-#D3js (data visualizing)
+  *Next.js
+  *SWR(api fetching)
+  *D3js (data visualizing)
 
 
 First, run the development server:
